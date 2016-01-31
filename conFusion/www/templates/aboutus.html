@@ -14,16 +14,16 @@
         </p>
       </div>
     </div>
-    <div class="list list-inset card">
+    <ul class="list list-inset">
       <div class="item item-divider">
-        <strong>Corporate Leadership</strong>
+        Corporate Leadership
       </div>
-      <div class="item item-avatar" ng-repeat="leader in leaders">
-        <img ng-src="{{baseURL+leader.image}}">
-        <p> {{leader.name}} </p>
-        <p> {{leader.designation}} </p>
-        <p> {{leader.description}} </p>
-      </div>
-    </div>
+        <li class="item item-avatar item-text-wrap" ng-repeat="leader in leaders">
+          <img ng-src="{{baseURL+leader.image}}">
+          <h2> {{leader.name}} </h2>
+          <h4> {{leader.designation}} </h4>
+          <p> {{leader.description}} </p>
+      </li>
+  </ul>
   </ion-content>
 </ion-view>
