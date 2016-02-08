@@ -1,0 +1,27 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Comment on {{dish.name}}</h1>
+    <button side="secondary" class="button button-icon icon ion-android-close" ng-click="closeCommentModal()"></button>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list">
+      <label class="item item-input item-select">
+        <span class="input-label">Rating</span>
+        <select ng-model="mycomment.rating">
+          <option ng-repeat="nb in [1,2,3,4,5]" ng-val="{{nb}}">{{nb}}</option>
+        </select>
+      </label>
+      <label class="item item-input text-input">
+        <span class="input-label">Your Name</span>
+        <input type="text" ng-model="mycomment.name">
+      </label>
+      <label class="item item-input text-input">
+        <span class="input-label">Your Comment</span>
+        <input type="text" ng-model="mycomment.comment">
+      </label>
+      <button class="button button-block button-positive" ng-click="submitComment()">
+        Submit
+      </button>
+    </div>
+  </ion-content>
+</ion-modal-view>
