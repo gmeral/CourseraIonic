@@ -25,7 +25,7 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-  .state('app', {
+    .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/sidebar.html',
@@ -43,54 +43,69 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
   })
 
   .state('app.aboutus', {
-      url: '/aboutus',
-      views: {
-        'mainContent': {
-          templateUrl: 'templates/aboutus.html',
-          controller: 'AboutController'
-        }
+    url: '/aboutus',
+    views: {
+      'mainContent': {
+        templateUrl: 'templates/aboutus.html',
+        controller: 'AboutController'
       }
-    })
+    }
+  })
 
-   .state('app.contactus', {
-      url: '/contactus',
-      views: {
-        'mainContent': {
-          templateUrl: 'templates/contactus.html'
-        }
+  .state('app.contactus', {
+    url: '/contactus',
+    views: {
+      'mainContent': {
+        templateUrl: 'templates/contactus.html'
       }
-    })
+    }
+  })
 
-    .state('app.menu', {
-      url: '/menu',
-      views: {
-        'mainContent': {
-          templateUrl: 'templates/menu.html',
-          controller: 'MenuController'
-        }
+  .state('app.menu', {
+    url: '/menu',
+    views: {
+      'mainContent': {
+        templateUrl: 'templates/menu.html',
+        controller: 'MenuController'
       }
-    })
+    }
+  })
 
   .state('app.dishdetails', {
     url: '/menu/:id',
     views: {
       'mainContent': {
         templateUrl: 'templates/dishdetail.html',
-        controller: 'DishDetailController'
+        controller: 'DishDetailController',
+        resolve: {
+          dish: ['$stateParams', 'menuFactory', function($stateParams, menuFactory) {
+            return menuFactory.get({
+              id: parseInt($stateParams.id, 10)
+            });
+          }]
+        }
       }
     }
   })
 
   .state('app.favorites', {
-      url: '/favorites',
-      views: {
-        'mainContent': {
-          templateUrl: 'templates/favorites.html',
-            controller:'FavoritesController'
+    url: '/favorites',
+    views: {
+      'mainContent': {
+        templateUrl: 'templates/favorites.html',
+        controller: 'FavoritesController',
+        resolve: {
+          dishes: ['menuFactory', function(menuFactory) {
+            return menuFactory.query();
+          }],
+
+          favorites: ['favoriteFactory', function(favoriteFactory) {
+            return favoriteFactory.getFavorites();
+          }]
         }
       }
-    })
-    ;
+    }
+  });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
 
